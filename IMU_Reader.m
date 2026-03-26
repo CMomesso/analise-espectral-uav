@@ -92,3 +92,10 @@ grid on
 
 % detrend???
 
+t = t_corte - t_corte(1);
+
+figure(3)
+[f, X_f] = fourier(t, gx_corte, 'sinus');
+loglog(f, abs(X_f))
+xlabel('Frequência [Hz]')
+ylabel('Eixo x [?]')
