@@ -54,7 +54,7 @@ legend('Desejado','Real');
 
 % Tempo de análise - tirando decolagem e pouso
 
-t_inicio = 4;
+t_inicio = 1;
 t_final = 30;
 
 t_inicio_index = find(t_giro>=t_inicio, 1, 'first');
@@ -90,12 +90,21 @@ xlabel('Tempo [s]')
 ylabel('Velocidade angular [rad/s]')
 grid on
 
-% detrend???
+gx_proc = detrend(gx_corte);
 
 t = t_corte - t_corte(1);
 
 figure(3)
-[f, X_f] = fourier(t, gx_corte, 'sinus');
-loglog(f, abs(X_f))
+[f, X_f] = fourier(t, gx_proc, 'sinus');
+plot(f, abs(X_f))
 xlabel('Frequência [Hz]')
-ylabel('Eixo x [?]')
+ylabel('Amplitude [rad/s]')
+grid on
+
+isbhMsg = readMessages(rawdata, MessageName="ISBH");
+isbhData = isbhMsg.MsgData{1};
+isbhData.Properties.VariableNames
+
+isbdMsg = readMessages(rawdata, MessageName="ISBD");
+isbdData = isbdMsg.MsgData{1};
+isbdData.Properties.VariableNames
